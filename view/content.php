@@ -2,7 +2,7 @@
 
 use Pagination\Pagination;
 
-if (!empty($_POST)) {
+if (!empty($_POST) && is_numeric($_POST['current_page']) && is_numeric($_POST['total_pages']) && is_numeric($_POST['boundaries']) && is_numeric($_POST['around'])) {
     $current_page = $_POST['current_page'];
     $total_pages = $_POST['total_pages'];
     $boundaries = $_POST['boundaries'];
