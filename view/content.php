@@ -1,7 +1,9 @@
 <?php
 
 use Pagination\Pagination;
+use Pagination\Render;
 
+/*** POST AND SESSION VALIDATION ***/
 if (!empty($_POST) && is_numeric($_POST['current_page']) && is_numeric($_POST['total_pages']) && is_numeric($_POST['boundaries']) && is_numeric($_POST['around'])) {
     $current_page = $_POST['current_page'];
     $total_pages = $_POST['total_pages'];
@@ -29,29 +31,10 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $current_page = $_GET['page'];
     $_SESSION['current_page'] = $current_page;
 }
+/*** POST AND SESSION VALIDATION ***/
 
 $page = new Pagination($current_page, $total_pages, $boundaries, $around);
-
-if ($current_page < 1 || $current_page > $total_pages) {
-    $current_page = 1;
-}
-$output = null;
-$output .= '<ul class="pagination">';
-
 $list = $page->displayPagination();
-$pages = explode(' ', $list);
 
-foreach ($pages as $page) {
-    if ($page == $current_page) {
-        $output .= '<li class="active"><a href="#">' . $page . '</a></li>';
-    } else {
-        if ($page != '...') {
-            $output .= '<li><a href="' . $_SERVER['PHP_SELF'] . '?page=' . $page . '">' . $page . '</a></li>';
-        } else {
-            $output .= '<li><a href="#">' . $page . '</a></li>';
-        }
-    }
-}
-
-$output .= '</ul>';
-echo $output;
+$render = new Render($current_page, $total_pages, $list);
+echo $render->view();
