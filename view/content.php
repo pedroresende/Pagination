@@ -14,7 +14,7 @@ if (!empty($_POST) && is_numeric($_POST['current_page']) && is_numeric($_POST['t
     $_SESSION['boundaries'] = $boundaries;
     $_SESSION['around'] = $around;
 } else {
-    if (!empty($_SESSION) && is_numeric($_POST['current_page']) && is_numeric($_POST['total_pages']) && is_numeric($_POST['boundaries']) && is_numeric($_POST['around'])) {
+    if (!empty($_SESSION) && is_numeric($_SESSION['current_page']) && is_numeric($_SESSION['total_pages']) && is_numeric($_SESSION['boundaries']) && is_numeric($_SESSION['around'])) {
         $current_page = $_SESSION['current_page'];
         $total_pages = $_SESSION['total_pages'];
         $boundaries = $_SESSION['boundaries'];
